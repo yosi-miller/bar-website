@@ -8,7 +8,7 @@ import HomeBoutiqueEventsPage from "./pages/HomeBoutiqueEventsPage";
 import HomePage from "./pages/HomePage";
 import PrestigeEventsPage from "./pages/PrestigeEventsPage";
 import NavbarComponent from "./components/NavbarComponent";
-import FooterComponent from "./components/FooterComponent";
+// import FooterComponent from "./components/FooterComponent";
 
 
 
