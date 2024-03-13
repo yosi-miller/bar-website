@@ -24,7 +24,9 @@ const NavbarComponent = () => {
     <div>
       <Navbar expand="lg" className={changeColor ? "color-active": ""}>
         <Container>
-          <Navbar.Brand href="/">ציפי שטיין - עיצובי ברים</Navbar.Brand>
+          <Navbar.Brand href="/">
+            <img src="/logo.png" alt="ציפי שטיין - עיצובי ברים"/>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto text-center">
