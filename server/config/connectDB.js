@@ -1,22 +1,24 @@
-import mongoose from "mongoose";
-
-let connect = null;
+import mongoose from 'mongoose';
 
 const connectDB = async () => {
-  const userName = process.env.USERNAME_DB;
-  const password = process.env.PASSWORD_DB;
-  const cluster = process.env.CLUSTER_DB;
-  const connectionURI = `mongodb+srv://${userName}:${password}${cluster}`;
-  
-  console.log("connectionURI:", connectionURI);
   try {
-    if (!connect) {
-      connect = await mongoose.connect(connectionURI);
-      console.log("Connected to the database");
+    const { URL_DB } = process.env;
+
+    if (!URL_DB) {
+      console.error('MONGO_URI environment variable is not defined.');
+      process.exit(1);
     }
-    return connectionURI;
-  } catch (error) {
-    console.error("Error connecting to the database:", error);
+
+    mongoose.set('strictQuery', true);
+    await mongoose.connect(URL_DB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log('MongoDB connected successfully.');
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
   }
 };
 

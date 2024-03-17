@@ -1,6 +1,5 @@
 import server from "./index.js";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import connectDB from "/Users/yosimiller/Desktop/bar-website/server/config/connectDB.js"
 
 dotenv.config();
