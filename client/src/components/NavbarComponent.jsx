@@ -16,27 +16,33 @@ const NavbarComponent = () => {
   };
 
   useEffect(() => {
-    changeBackgroundColor();
-    window.addEventListener("scroll", changeBackgroundColor)
-  });
+    window.addEventListener("scroll", changeBackgroundColor);
+    
+    return () => window.removeEventListener("scroll", changeBackgroundColor);
+}, []);
+
 
   return (
     <div>
-      <Navbar expand="lg" className={changeColor ? "color-active": ""}>
-        <Container>
+      <Navbar expand="xl" className={`navbar-custom ${changeColor ? "color-active": ""}`}>
+        <Container fluid>
           <Navbar.Brand href="/">
             <img src="/logo.png" alt="ציפי שטיין - עיצובי ברים"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mx-auto text-center">
+            <Nav className="mx-auto">
               {navLinks.map((Link) => {
                 return ( 
-                  <div className="nav-link" key={Link.id}>
-                    <NavLink to={Link.path}   className={({ isActive, isPending }) =>
-                      isPending ? "pending" : isActive ? "active" : ""
-                      }>{Link.text}</NavLink>
-                  </div>
+                    <Nav.Link
+                      as={NavLink}
+                      to={Link.path}
+                      key={Link.id}
+                      // className={({ isActive }) => (isActive ? "active" : "")}
+                      className="nav-link custom-link"
+                    >
+                      {Link.text}
+                    </Nav.Link>
                 );
               })}
             </Nav>
