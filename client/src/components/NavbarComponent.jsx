@@ -38,7 +38,6 @@ const NavbarComponent = () => {
                       as={NavLink}
                       to={Link.path}
                       key={Link.id}
-                      // className={({ isActive }) => (isActive ? "active" : "")}
                       className="nav-link custom-link"
                     >
                       {Link.text}
