@@ -8,6 +8,8 @@ import HomePage from "./pages/HomePage";
 import PrestigeEventsPage from "./pages/PrestigeEventsPage";
 import TableCentersPage from "./pages/TableCentersPage";
 import NavbarComponent from "./components/NavbarComponent";
+import FloorBarPage from "./pages/FloorBarPage";
+import LiveBarPage from "./pages/LiveBarPage";
 // import FooterComponent from "./components/FooterComponent";
 
 
@@ -17,7 +19,10 @@ function App() {
     <NavbarComponent/>
     <Routes>
       <Route path="/about" element={<AboutPage/>}/>
-      <Route path="/bars" element={<BarsPage/>}/>
+      <Route path="/bars" element={<BarsPage/>}>
+        <Route path="floor-bar" element={<FloorBarPage/>}/>
+        <Route path="live-bar" element={<LiveBarPage/>}/>
+      </Route>
       <Route path="/bat-mitzvah" element={<BatMitzvahPage/>}/>
       <Route path="/contact-us" element={<ContactUsPage/>}/>
       <Route path="/home-boutique-events" element={<HomeBoutiqueEventsPage/>}/>

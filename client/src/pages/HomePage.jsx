@@ -6,16 +6,23 @@ import Image3 from "../assets/images/6.jpg";
 import { allCategories } from '../data/index';
 
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 
 const HomePage = () => {
   let navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const openModal = (image) => {
-    setSelectedImage(image);
+  const openModal = (category, index) => {
+    setSelectedCategory(category);
+    if (category.images) {
+      setCurrentImageIndex(index);
+      setSelectedImage(category.images[index].image);
+    } else {
+      setSelectedImage(category.image);
+    }
     setModalIsOpen(true);
   };
 
@@ -23,6 +30,30 @@ const HomePage = () => {
     setSelectedImage(null);
     setModalIsOpen(false);
   };
+
+  const goToPreviousImage = () => {
+    setCurrentImageIndex((prevIndex) => {
+      const newIndex = prevIndex - 1;
+      return newIndex < 0 ? selectedCategory.images.length - 1 : newIndex;
+    });
+  };
+  
+  const goToNextImage = () => {
+    setCurrentImageIndex((prevIndex) => {
+      const newIndex = prevIndex + 1;
+      return newIndex === selectedCategory.images.length ? 0 : newIndex;
+    });
+  };
+
+  useEffect(() => {
+    if (selectedCategory) {
+      if (selectedCategory.images) {
+        setSelectedImage(selectedCategory.images[currentImageIndex].image);
+      } else {
+        setSelectedImage(selectedCategory.image);
+      }
+    }
+  }, [currentImageIndex, selectedCategory]);
 
   return (
     <div className="homepage">
@@ -58,10 +89,10 @@ const HomePage = () => {
             {allCategories.map((category) => {
               return <Col key={category.id}>
                 <img
-                  src={category.image}
+                  src={category.images ? category.images[0].image : category.image}
                   alt={category.title}
                   className='w-100 mb-5 rounded-top'
-                  onClick={() => openModal(category.image)}
+                  onClick={() => openModal(category, category.images ? 0 : undefined)}
                 />
                 <div className='text-center mb-4'>
                   <h2>{category.name}</h2>
@@ -79,13 +110,25 @@ const HomePage = () => {
       </div>
 
       {modalIsOpen && (
-        <div className="custom-modal-overlay" onClick={closeModal}>
+        <div className="custom-modal-overlay">
           <button className="close-button" onClick={closeModal}>
-            <i class='fas fa-times'></i>
+            <i className='fas fa-times'></i>
           </button>
           <div className="custom-modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage} alt="Enlarged" className="modal-image" />
+            <div className="modal-image-container">
+              <img src={selectedImage} alt="Enlarged" className="modal-image" />
+            </div>
           </div>
+          {selectedCategory && selectedCategory.images && selectedCategory.images.length > 1 && (
+            <>
+              <button className="arrow arrow-left" onClick={goToPreviousImage}>
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              <button className="arrow arrow-right" onClick={goToNextImage}>
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>
