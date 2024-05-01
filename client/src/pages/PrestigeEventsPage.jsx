@@ -1,7 +1,9 @@
+import RoyalFrameImage from "../components/RoyalFrameImage"
+
 const PrestigeEventsPage = () => {
   return (
     <div>
-      PrestigeEventsPage
+      <RoyalFrameImage src={'/client/src/assets/images/1.jpg'} alt={"image"} />
     </div>
   )
 }

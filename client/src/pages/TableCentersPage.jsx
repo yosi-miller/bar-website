@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import ViewComponent from '../components/ViewComponent';
+import { table_center } from '../data';
 
 const TableCentersPage = () => {
   return (
     <div>
-      TableCentersPage
+      <ViewComponent images={table_center} />
     </div>
-  )
-}
+  );
+};
 
-export default TableCentersPage
+export default TableCentersPage;

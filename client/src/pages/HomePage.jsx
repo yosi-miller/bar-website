@@ -8,6 +8,13 @@ import { allCategories } from '../data/index';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination, Autoplay } from 'swiper/modules';
+
+import RoyalFrameImage from '../components/RoyalFrameImage';
+
 const HomePage = () => {
   let navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -63,15 +70,32 @@ const HomePage = () => {
             <Col className='text-btn-box position-relative' lg='6'>
               <h1 className='mb-4'>ציפי שטיין - עיצוב אירועים</h1>
               <h4 className='mb-4'>הפיכת אירועי החלומות שלך למציאות</h4>
-              <button className='btn btn-custom' onClick={() => navigate('/contact-us')}>ליצירת קשר</button>
+              <button className='btn btn-about' onClick={() => navigate('/about')}>אודותינו</button>
+              <button className='btn btn-contact-us' onClick={() => navigate('/contact-us')}>ליצירת קשר</button>
             </Col>
             <Col lg='6' className='pt-lg-0 pt-5 text-center'>
               <div className="image-container">
-                <img src={Image1} alt="image" className="main-image" />
-                <div className="sub-images">
-                  <img src={Image2} alt="image" className="sub-image" />
-                  <img src={Image3} alt="image" className="sub-image" />
-                </div>
+                  <Swiper
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    modules={[Pagination, Autoplay]}
+                    autoplay={{
+                      delay: 3000,
+                      disableOnInteraction: false,
+                    }}
+                    loop={true}
+                    className="mySwiper"
+                  >
+                    <SwiperSlide><RoyalFrameImage src={Image1} alt="image"/></SwiperSlide>
+                    <SwiperSlide><RoyalFrameImage src={Image2} alt="image"/></SwiperSlide>
+                    <SwiperSlide><RoyalFrameImage src={Image3} alt="image"/></SwiperSlide>
+                    <SwiperSlide><RoyalFrameImage src={Image1} alt="image"/></SwiperSlide>
+                    <SwiperSlide><RoyalFrameImage src={Image2} alt="image"/></SwiperSlide>
+                    <SwiperSlide><RoyalFrameImage src={Image3} alt="image"/></SwiperSlide>
+                  </Swiper>
               </div>
             </Col>
           </Row>
@@ -87,24 +111,27 @@ const HomePage = () => {
           </Row>
           <Row>
             {allCategories.map((category) => {
-              return <Col key={category.id}>
-                <img
-                  src={category.images ? category.images[0].image : category.image}
-                  alt={category.title}
-                  className='w-100 mb-5 rounded-top'
-                  onClick={() => openModal(category, category.images ? 0 : undefined)}
-                />
-                <div className='text-center mb-4'>
-                  <h2>{category.name}</h2>
-                </div>
-                <div className='d-flex justify-content-center'>
-                  <button className='btn btn-success rounded-5 btn-lg flex-nowrap' onClick={() => navigate(`${category.link}`)}>
-                    <h5>למעבר לעמוד</h5>
-                    <i className='fa-solid fa-chevron-left me-1'></i>
-                  </button>
-                </div>
-              </Col>
-            })}
+              return (
+                <Col key={category.id} className='shadow rounded'>
+                  <div className='image-wrapper'>
+                    <img
+                      src={category.images ? category.images[0].image : category.image}
+                      alt={category.title}
+                      className='w-100 mb-5 rounded-top'
+                      onClick={() => openModal(category, category.images ? 0 : undefined)}
+                    />
+                  </div>
+                  <div className='text-center mb-4'>
+                    <h2>{category.name}</h2>
+                  </div>
+                  <div className='d-flex justify-content-center'>
+                    <button className='btn btn-success rounded-5 btn-lg flex-nowrap' onClick={() => navigate(`${category.link}`)}>
+                      <h5>למעבר לעמוד</h5>
+                      <i className='fa-solid fa-chevron-left me-1'></i>
+                    </button>
+                  </div>
+                </Col>
+              )})}
           </Row>
         </Container>
       </div>
