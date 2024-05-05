@@ -1,11 +1,13 @@
-import express from 'express';
-const app = express();
-const port = 6000;
+import server from "./index.js";
+import dotenv from "dotenv";
+import connectDB from "/Users/yosimiller/Desktop/bar-website/server/config/connectDB.js";
 
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
-});
+dotenv.config();
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+connectDB()
+
+const port = process.env.PORT;
+
+server.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
