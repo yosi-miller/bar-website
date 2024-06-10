@@ -1,9 +1,5 @@
 const LiveBarPage = () => {
-  return (
-    <div>
-      LiveBarPage
-    </div>
-  )
-}
+  return <div>LiveBarPage</div>;
+};
 
-export default LiveBarPage
+export default LiveBarPage;
