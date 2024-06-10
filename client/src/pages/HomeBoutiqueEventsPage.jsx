@@ -1,9 +1,5 @@
 const HomeBoutiqueEventsPage = () => {
-  return (
-    <div>
-      HomeBoutiqueEventsPage
-    </div>
-  )
-}
+  return <div>HomeBoutiqueEventsPage</div>;
+};
 
-export default HomeBoutiqueEventsPage
+export default HomeBoutiqueEventsPage;

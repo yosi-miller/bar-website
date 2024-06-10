@@ -1,9 +1,5 @@
 const FloorBarPage = () => {
-  return (
-    <div>
-      FloorBarPage
-    </div>
-  )
-}
+  return <div>FloorBarPage</div>;
+};
 
-export default FloorBarPage
+export default FloorBarPage;
