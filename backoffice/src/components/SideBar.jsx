@@ -15,7 +15,7 @@ const routerButtons = [
 
 const Sidebar = () => {
   return (
-    <Box sx={{ width: '15%', height: '100vh', backgroundColor: '#f5f5f5' }}>
+    <Box sx={{ width: '15%', backgroundColor: '#f5f5f5' }}>
       {routerButtons.map((item) => (
         <SideBarButton key={item.to} item={item} />
       ))}

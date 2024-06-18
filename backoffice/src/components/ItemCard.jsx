@@ -1,6 +1,13 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Button, Grid } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+  Box,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ItemCard = ({ item }) => {
   const handleDelete = () => {
@@ -9,22 +16,29 @@ const ItemCard = ({ item }) => {
   };
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
-      <Card>
+    <Box
+      sx={{
+        display: "flex",
+        width: "25%",
+        height: "380px",
+        margin: "10px",
+      }}
+    >
+      <Card sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image={item.image}
           alt={item.name}
         />
-        <CardContent>
+        <CardContent sx={{ flexGrow: 1 }}>
           <Typography gutterBottom variant="h5" component="div">
             {item.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography gutterBottom variant="body2" color="text.secondary">
             קטגוריה: {item.category}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography gutterBottom variant="body2" color="text.secondary">
             תאריך עדכון: {item.updatedAt}
           </Typography>
           <Button
@@ -36,7 +50,7 @@ const ItemCard = ({ item }) => {
           </Button>
         </CardContent>
       </Card>
-    </Grid>
+    </Box>
   );
 };
 

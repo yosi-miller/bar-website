@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 const Root = () => {
   return (
-    <Box sx={{ display: "flex"}}>
+    <Box sx={{ display: "flex", height: '100vh' }}>
       <Sidebar />
       <Outlet />
     </Box>
