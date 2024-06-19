@@ -19,7 +19,7 @@ const ItemCard = ({ item }) => {
     <Box
       sx={{
         display: "flex",
-        width: "25%",
+        width: "23%",
         height: "380px",
         margin: "10px",
       }}

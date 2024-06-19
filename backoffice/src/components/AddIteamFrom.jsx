@@ -5,6 +5,7 @@ import { he } from "date-fns/locale";
 import CloseIcon from "@mui/icons-material/Close";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import AddIcon from "@mui/icons-material/Add";
+import addData from "../../../firebase/controllers/addData.js"
 import {
   Dialog,
   DialogTitle,
@@ -44,15 +45,22 @@ const AddImageForm = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const updatedFormData = {
       ...formData,
       updateDate: format(new Date(), "dd/MM/yyyy HH:mm:ss", { locale: he }),
       category,
     };
     console.log("🚀 ~ handleSubmit ~ updatedFormData:", updatedFormData);
-    setOpen(false);
-    navigate(`/new-item/${category}`);
+    try {
+      const updata = await addData(updatedFormData, category);
+      console.log("🚀 ~ handleSubmit ~ updata:", updata);
+      setOpen(false);
+      navigate(`/new-item/${category}`);
+    } catch (error) {
+      console.error("Error during submit: ", error);
+    }
   };
 
   const handleClose = () => {
@@ -67,7 +75,11 @@ const AddImageForm = () => {
 
   return (
     <>
-      <Button variant="outlined" startIcon={<AddIcon />} onClick={() => setOpen(true)}>
+      <Button
+        variant="outlined"
+        startIcon={<AddIcon />}
+        onClick={() => setOpen(true)}
+      >
         הוסף תמונה חדשה
       </Button>
 
@@ -81,7 +93,11 @@ const AddImageForm = () => {
             paddingRight: 2,
           }}
         >
-          <Typography variant="h6" component="div" sx={{ textAlign: "center", flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ textAlign: "center", flexGrow: 1 }}
+          >
             הוספת תמונה חדשה
           </Typography>
           <IconButton
@@ -134,7 +150,9 @@ const AddImageForm = () => {
                   ) : (
                     <>
                       <AddPhotoAlternateIcon sx={{ fontSize: 48 }} />
-                      <Typography>גרור ושחרר תמונה כאן, או לחץ לבחירה</Typography>
+                      <Typography>
+                        גרור ושחרר תמונה כאן, או לחץ לבחירה
+                      </Typography>
                     </>
                   )}
                 </Box>
@@ -160,7 +178,9 @@ const AddImageForm = () => {
                 label="תאריך עדכון"
                 type="text"
                 fullWidth
-                value={format(new Date(), "dd/MM/yyyy HH:mm:ss", { locale: he })}
+                value={format(new Date(), "dd/MM/yyyy HH:mm:ss", {
+                  locale: he,
+                })}
                 InputProps={{
                   readOnly: true,
                   style: { backgroundColor: "#f0f0f0" },
