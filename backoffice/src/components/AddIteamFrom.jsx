@@ -17,6 +17,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import uploadFile from "../../../firebase/controllers/uploadImage.js";
 
 const AddImageForm = () => {
   const { category } = useParams();
@@ -54,8 +55,9 @@ const AddImageForm = () => {
     };
     console.log("🚀 ~ handleSubmit ~ updatedFormData:", updatedFormData);
     try {
-      const updata = await addData(updatedFormData, category);
-      console.log("🚀 ~ handleSubmit ~ updata:", updata);
+      // const updata = await addData(updatedFormData, category);
+      const uploadImag = await uploadFile(formData.image, category)
+      console.log("🚀 ~ handleSubmit ~ updata:", uploadImag);
       setOpen(false);
       navigate(`/new-item/${category}`);
     } catch (error) {
